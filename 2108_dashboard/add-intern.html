@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add New Intern</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600">
+    <link rel="stylesheet" href="css/fontawesome.min.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/tooplate.css">
+</head>
+
+<body>
+<div class="container mt-5">
+    <div class="bg-white tm-block">
+        <h2 class="tm-block-title mb-4">Add New Intern</h2>
+
+        <form>
+            <div class="form-group">
+                <label>Full Name</label>
+                <input type="text" class="form-control" placeholder="Enter intern name">
+            </div>
+
+            <div class="form-group">
+                <label>Email Address</label>
+                <input type="email" class="form-control" placeholder="Enter email">
+            </div>
+
+            <div class="form-group">
+                <label>Department</label>
+                <select class="form-control">
+                    <option>Web Development</option>
+                    <option>Cyber Security</option>
+                    <option>UI/UX</option>
+                    <option>Data Science</option>
+                    <option>QA</option>
+                    <option>SEO</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Start Date</label>
+                <input type="date" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label>Status</label>
+                <select class="form-control">
+                    <option>Active</option>
+                    <option>On Hold</option>
+                    <option>Completed</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-success">
+                <i class="fas fa-save"></i> Save Intern
+            </button>
+
+            <a href="interns.html" class="btn btn-secondary ml-2">
+                Cancel
+            </a>
+        </form>
+    </div>
+</div>
+
+<script src="js/jquery-3.3.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+</body>
+</html>
