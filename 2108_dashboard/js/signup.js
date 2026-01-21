@@ -12,37 +12,17 @@ function showSignupError(form, message) {
 
 async function handleSignupSubmit(form) {
   const payload = {
-    name: form.elements.name.value.trim(),
     email: form.elements.email.value.trim(),
-    phone: form.elements.phone.value.trim(),
     role: form.elements.role.value,
-    password: form.elements.password.value,
-    confirmPassword: form.elements.password2.value
+    password: form.elements.password.value
   };
 
-  if (payload.password !== payload.confirmPassword) {
+  if (payload.password !== form.elements.password2.value) {
     throw new Error("Passwords do not match.");
   }
 
-  const response = await window.signupUser(payload);
-  const token =
-    response &&
-    (response.token || response.accessToken || response.jwt || response.data);
-  const role =
-    response &&
-    (response.role ||
-      (response.user && response.user.role) ||
-      response.userRole ||
-      payload.role);
-
-  if (token) {
-    window.setAuthToken(token);
-  }
-  if (role) {
-    window.setUserRole(role);
-  }
-
-  window.redirectByRole(role);
+  await window.signupUser(payload);
+  window.location.href = "login.html";
 }
 
 document.addEventListener("DOMContentLoaded", () => {

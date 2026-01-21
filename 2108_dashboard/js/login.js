@@ -11,27 +11,32 @@ function showLoginError(form, message) {
 }
 
 async function handleLoginSubmit(form) {
+  const emailValue = form.elements.email
+    ? form.elements.email.value.trim()
+    : "";
+  const usernameValue = form.elements.username
+    ? form.elements.username.value.trim()
+    : "";
+
   const payload = {
-    username: form.elements.username.value.trim(),
-    email: form.elements.email ? form.elements.email.value.trim() : "",
+    email: emailValue || usernameValue,
     password: form.elements.password.value
   };
 
   const response = await window.loginUser(payload);
-  const token =
-    response &&
-    (response.token || response.accessToken || response.jwt || response.data);
-  const role =
-    response &&
-    (response.role ||
-      (response.user && response.user.role) ||
-      response.userRole);
+  const token = response && (response.access || response.token);
+  const user = response && response.user;
+  const role = user && user.role;
+  const email = user && user.email;
 
   if (token) {
     window.setAuthToken(token);
   }
   if (role) {
     window.setUserRole(role);
+  }
+  if (email) {
+    window.setUserEmail(email);
   }
 
   window.redirectByRole(role);

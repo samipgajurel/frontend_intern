@@ -2,6 +2,7 @@
 
 const AUTH_TOKEN_KEY = "authToken";
 const USER_ROLE_KEY = "userRole";
+const USER_EMAIL_KEY = "userEmail";
 
 function getAuthToken() {
   return window.localStorage.getItem(AUTH_TOKEN_KEY);
@@ -23,9 +24,20 @@ function setUserRole(role) {
   }
 }
 
+function getUserEmail() {
+  return window.localStorage.getItem(USER_EMAIL_KEY);
+}
+
+function setUserEmail(email) {
+  if (email) {
+    window.localStorage.setItem(USER_EMAIL_KEY, email);
+  }
+}
+
 function clearAuth() {
   window.localStorage.removeItem(AUTH_TOKEN_KEY);
   window.localStorage.removeItem(USER_ROLE_KEY);
+  window.localStorage.removeItem(USER_EMAIL_KEY);
 }
 
 function requireAuth() {
@@ -34,40 +46,16 @@ function requireAuth() {
   }
 }
 
-async function fetchCurrentUser() {
-  const endpoints = ["users/me", "accounts/me", "profile"];
-  let lastError;
-
-  for (const path of endpoints) {
-    try {
-      return await window.apiFetch(path);
-    } catch (error) {
-      if (error.status === 404) {
-        lastError = error;
-        continue;
-      }
-      throw error;
-    }
-  }
-
-  if (lastError) {
-    console.warn("No profile endpoint found.", lastError);
-  }
-  return null;
-}
-
 async function requireRole(roles) {
   requireAuth();
-  let role = getUserRole();
+  const role = getUserRole();
+
   if (!role) {
-    const profile = await fetchCurrentUser();
-    role = profile && (profile.role || profile.userRole || profile.type);
-    if (role) {
-      setUserRole(role);
-    }
+    window.location.href = "login.html";
+    return;
   }
 
-  if (!role || !roles.map(r => r.toLowerCase()).includes(role.toLowerCase())) {
+  if (!roles.map(r => r.toLowerCase()).includes(role.toLowerCase())) {
     window.location.href = "index.html";
   }
 }
@@ -110,17 +98,11 @@ async function tryAuthEndpoints(paths, payload) {
 }
 
 async function loginUser(credentials) {
-  return tryAuthEndpoints(
-    ["auth/login", "auth/token", "token", "login"],
-    credentials
-  );
+  return tryAuthEndpoints(["login", "accounts/login"], credentials);
 }
 
 async function signupUser(payload) {
-  return tryAuthEndpoints(
-    ["auth/signup", "auth/register", "register", "signup"],
-    payload
-  );
+  return tryAuthEndpoints(["register", "accounts/register"], payload);
 }
 
 window.getAuthToken = getAuthToken;
@@ -128,9 +110,10 @@ window.setAuthToken = setAuthToken;
 window.clearAuth = clearAuth;
 window.getUserRole = getUserRole;
 window.setUserRole = setUserRole;
+window.getUserEmail = getUserEmail;
+window.setUserEmail = setUserEmail;
 window.requireAuth = requireAuth;
 window.requireRole = requireRole;
-window.fetchCurrentUser = fetchCurrentUser;
 window.loginUser = loginUser;
 window.signupUser = signupUser;
 window.redirectByRole = redirectByRole;

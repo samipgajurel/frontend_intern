@@ -6,22 +6,12 @@ async function loadRoleDashboard() {
     supervisorName: document.getElementById("supervisorName")
   };
 
-  try {
-    const profile = await window.fetchCurrentUser();
-    if (!profile) {
-      return;
-    }
-
-    const displayName =
-      profile.name || profile.fullName || profile.username || "User";
-    if (nameTargets.adminName) {
-      nameTargets.adminName.textContent = displayName;
-    }
-    if (nameTargets.supervisorName) {
-      nameTargets.supervisorName.textContent = displayName;
-    }
-  } catch (error) {
-    console.error("Failed to load profile.", error);
+  const displayName = window.getUserEmail() || "User";
+  if (nameTargets.adminName) {
+    nameTargets.adminName.textContent = displayName;
+  }
+  if (nameTargets.supervisorName) {
+    nameTargets.supervisorName.textContent = displayName;
   }
 }
 

@@ -70,7 +70,7 @@ async function loadProgress() {
   }
 
   try {
-    const data = await fetchFirstAvailable(["interns/progress", "progress"]);
+    const data = await fetchFirstAvailable(["progress"]);
     if (!Array.isArray(data)) {
       return;
     }
