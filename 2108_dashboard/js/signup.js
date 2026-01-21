@@ -28,12 +28,21 @@ async function handleSignupSubmit(form) {
   const token =
     response &&
     (response.token || response.accessToken || response.jwt || response.data);
+  const role =
+    response &&
+    (response.role ||
+      (response.user && response.user.role) ||
+      response.userRole ||
+      payload.role);
 
   if (token) {
     window.setAuthToken(token);
   }
+  if (role) {
+    window.setUserRole(role);
+  }
 
-  window.location.href = "index.html";
+  window.redirectByRole(role);
 }
 
 document.addEventListener("DOMContentLoaded", () => {

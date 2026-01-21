@@ -13,6 +13,7 @@ function showLoginError(form, message) {
 async function handleLoginSubmit(form) {
   const payload = {
     username: form.elements.username.value.trim(),
+    email: form.elements.email ? form.elements.email.value.trim() : "",
     password: form.elements.password.value
   };
 
@@ -20,12 +21,20 @@ async function handleLoginSubmit(form) {
   const token =
     response &&
     (response.token || response.accessToken || response.jwt || response.data);
+  const role =
+    response &&
+    (response.role ||
+      (response.user && response.user.role) ||
+      response.userRole);
 
   if (token) {
     window.setAuthToken(token);
   }
+  if (role) {
+    window.setUserRole(role);
+  }
 
-  window.location.href = "index.html";
+  window.redirectByRole(role);
 }
 
 document.addEventListener("DOMContentLoaded", () => {
