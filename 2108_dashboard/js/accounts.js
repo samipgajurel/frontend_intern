@@ -1,7 +1,7 @@
 "use strict";
 
 async function fetchAccountProfile() {
-  const endpoints = ["accounts/me", "users/me", "profile"];
+  const endpoints = ["users/me", "accounts/me", "profile"];
   let lastError;
 
   for (const path of endpoints) {
@@ -54,14 +54,40 @@ async function updateAccount(form) {
     throw new Error("Passwords do not match.");
   }
 
+  const endpoints = ["users/me", "accounts/me"];
   const methods = ["PUT", "PATCH"];
   let lastError;
-  for (const method of methods) {
+  for (const endpoint of endpoints) {
+    for (const method of methods) {
+      try {
+        await window.apiFetch(endpoint, {
+          method,
+          body: JSON.stringify(payload)
+        });
+        return;
+      } catch (error) {
+        if (error.status === 404) {
+          lastError = error;
+          continue;
+        }
+        throw error;
+      }
+    }
+  }
+
+  if (lastError) {
+    throw lastError;
+  }
+}
+
+async function deleteAccount() {
+  const endpoints = ["users/me", "accounts/me"];
+  let lastError;
+  for (const endpoint of endpoints) {
     try {
-      await window.apiFetch("accounts/me", {
-        method,
-        body: JSON.stringify(payload)
-      });
+      await window.apiFetch(endpoint, { method: "DELETE" });
+      window.clearAuth();
+      window.location.href = "login.html";
       return;
     } catch (error) {
       if (error.status === 404) {
@@ -75,12 +101,6 @@ async function updateAccount(form) {
   if (lastError) {
     throw lastError;
   }
-}
-
-async function deleteAccount() {
-  await window.apiFetch("accounts/me", { method: "DELETE" });
-  window.clearAuth();
-  window.location.href = "login.html";
 }
 
 document.addEventListener("DOMContentLoaded", async () => {

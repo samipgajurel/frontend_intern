@@ -1,10 +1,11 @@
 "use strict";
 
 const API_BASE_URL =
-  window.localStorage.getItem("apiBaseUrl") || "http://localhost:3000/api";
+  window.localStorage.getItem("apiBaseUrl") || "http://localhost:8000/api";
 
 function buildApiUrl(path) {
-  return `${API_BASE_URL.replace(/\/$/, "")}/${String(path).replace(/^\//, "")}`;
+  const normalizedPath = String(path).replace(/^\//, "").replace(/\/?$/, "/");
+  return `${API_BASE_URL.replace(/\/$/, "")}/${normalizedPath}`;
 }
 
 async function apiFetch(path, options = {}) {

@@ -35,7 +35,7 @@ function requireAuth() {
 }
 
 async function fetchCurrentUser() {
-  const endpoints = ["accounts/me", "users/me", "profile"];
+  const endpoints = ["users/me", "accounts/me", "profile"];
   let lastError;
 
   for (const path of endpoints) {
@@ -110,12 +110,15 @@ async function tryAuthEndpoints(paths, payload) {
 }
 
 async function loginUser(credentials) {
-  return tryAuthEndpoints(["auth/login", "login"], credentials);
+  return tryAuthEndpoints(
+    ["auth/login", "auth/token", "token", "login"],
+    credentials
+  );
 }
 
 async function signupUser(payload) {
   return tryAuthEndpoints(
-    ["auth/signup", "auth/register", "signup", "register"],
+    ["auth/signup", "auth/register", "register", "signup"],
     payload
   );
 }
