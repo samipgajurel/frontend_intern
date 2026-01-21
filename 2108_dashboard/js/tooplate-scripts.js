@@ -1,4 +1,16 @@
 const width_threshold = 480;
+let ctxLine;
+let ctxBar;
+let ctxPie;
+let optionsLine;
+let optionsBar;
+let optionsPie;
+let configLine;
+let configBar;
+let configPie;
+let lineChart;
+let barChart;
+let pieChart;
 
 function drawLineChart() {
   if ($("#lineChart").length) {
@@ -197,13 +209,13 @@ function drawCalendar() {
       events: [
         {
           title: "Meeting",
-          start: "2018-09-1",
-          end: "2018-09-2"
+          start: "2018-09-01",
+          end: "2018-09-02"
         },
         {
           title: "Marketing trip",
-          start: "2018-09-6",
-          end: "2018-09-8"
+          start: "2018-09-06",
+          end: "2018-09-08"
         },
         {
           title: "Follow up",
@@ -216,7 +228,7 @@ function drawCalendar() {
         {
           title: "Company Trip",
           start: "2018-10-25",
-		  end: "2018-10-27"
+          end: "2018-10-27"
         },
         {
           title: "Review",
