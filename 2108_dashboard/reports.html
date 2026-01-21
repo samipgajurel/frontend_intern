@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Intern Reports</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/tooplate.css">
+</head>
+
+<body class="bg02">
+
+<script src="js/auth.js"></script>
+<script src="js/api.js"></script>
+<script>
+requireAuth();
+</script>
+
+<div class="container mt-5 bg-white p-4">
+    <h2 class="tm-block-title">Intern Performance Report</h2>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Intern</th>
+                <th>Domain</th>
+                <th>Completed</th>
+                <th>Total</th>
+                <th>Progress</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody id="reportBody"></tbody>
+    </table>
+</div>
+
+<script>
+apiFetch("interns/").then(data => {
+    const body = document.getElementById("reportBody");
+
+    data.forEach(i => {
+        let status = i.progress >= 70 ? "Good" : "Needs Improvement";
+        body.innerHTML += `
+        <tr>
+            <td>${i.user}</td>
+            <td>${i.domain}</td>
+            <td>${i.completed_tasks}</td>
+            <td>${i.total_tasks}</td>
+            <td>${i.progress}%</td>
+            <td>${status}</td>
+        </tr>`;
+    });
+});
+</script>
+
+</body>
+</html>
