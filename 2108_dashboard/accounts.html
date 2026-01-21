@@ -84,7 +84,8 @@
                     </div>
                     <div class="row">
                         <div class="col-12">
-                            <form action="" class="tm-signup-form">
+                            <form id="accountForm" action="" class="tm-signup-form">
+                                <div class="alert alert-danger d-none" role="alert" data-form-alert></div>
                                 <div class="form-group">
                                     <label for="name">Account Name</label>
                                     <input placeholder="Enter Your Full Name" id="name" name="name" type="text" class="form-control validate">
@@ -108,11 +109,11 @@
                                 
                                 <div class="row">
                                     <div class="col-12 col-sm-4">
-                                        <button type="submit" class="btn btn-primary">Update
+                                        <button type="submit" class="btn btn-primary" data-action="update">Update
                                         </button>
                                     </div>
                                     <div class="col-12 col-sm-8 tm-btn-right">
-                                        <button type="submit" class="btn btn-danger">Delete Account
+                                        <button type="button" class="btn btn-danger" data-action="delete">Delete Account
                                         </button>
                                     </div>
                                 </div>
@@ -148,6 +149,12 @@
     <!-- https://jquery.com/download/ -->
     <script src="js/bootstrap.min.js"></script>
     <!-- https://getbootstrap.com/ -->
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script>
+        requireAuth();
+    </script>
+    <script src="js/accounts.js"></script>
 </body>
 
 </html>

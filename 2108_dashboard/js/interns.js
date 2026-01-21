@@ -1,33 +1,5 @@
 "use strict";
 
-const API_BASE_URL =
-  window.localStorage.getItem("apiBaseUrl") || "http://localhost:3000/api";
-
-function buildApiUrl(path) {
-  return `${API_BASE_URL.replace(/\/$/, "")}/${path.replace(/^\//, "")}`;
-}
-
-async function fetchJson(url, options) {
-  const response = await fetch(url, {
-    headers: {
-      "Content-Type": "application/json",
-      ...(options && options.headers ? options.headers : {})
-    },
-    ...options
-  });
-
-  if (!response.ok) {
-    const errorText = await response.text();
-    throw new Error(errorText || `Request failed with ${response.status}`);
-  }
-
-  if (response.status === 204) {
-    return null;
-  }
-
-  return response.json();
-}
-
 function normalizeIntern(intern, index) {
   return {
     id: intern.id || intern._id || intern.uuid || index,
@@ -107,7 +79,7 @@ function renderEmptyRow() {
 
 async function loadInterns(tableBody) {
   try {
-    const data = await fetchJson(buildApiUrl("interns"));
+    const data = await window.apiFetch("interns");
     if (!Array.isArray(data)) {
       return;
     }
@@ -147,7 +119,7 @@ async function handleAddInternSubmit(form) {
     status: form.elements.status.value
   };
 
-  await fetchJson(buildApiUrl("interns"), {
+  await window.apiFetch("interns", {
     method: "POST",
     body: JSON.stringify(payload)
   });

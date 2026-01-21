@@ -93,7 +93,7 @@
                                     </tr>
                                 </thead>
 
-                                <tbody>
+                                <tbody id="progressTableBody">
                                     <tr>
                                         <th><input type="checkbox"></th>
                                         <td class="tm-intern-name">1. Aayush Sharma</td>
@@ -140,7 +140,7 @@
                         <h2 class="tm-block-title d-inline-block">Intern Domains</h2>
 
                         <table class="table table-hover table-striped mt-3">
-                            <tbody>
+                            <tbody id="domainsTableBody">
                                 <tr>
                                     <td>1. Web Development</td>
                                     <td class="tm-trash-icon-cell">
@@ -189,14 +189,12 @@
 
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
-
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
     <script>
-        $(function () {
-            $('.tm-intern-name').on('click', function () {
-                window.location.href = "edit-intern.html";
-            });
-        });
+        requireAuth();
     </script>
+    <script src="js/progress.js"></script>
 
 </body>
 </html>
