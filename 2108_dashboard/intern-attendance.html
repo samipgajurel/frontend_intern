@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Intern Attendance</title>
+
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/fontawesome.min.css">
+  <link rel="stylesheet" href="css/templatemo-style.css">
+</head>
+
+<body id="reportsPage">
+  <div id="home">
+    <nav class="navbar navbar-expand-xl">
+      <div class="container h-100">
+        <a class="navbar-brand" href="intern-dashboard.html"><h1 class="tm-site-title mb-0">DASHBOARD</h1></a>
+        <button class="navbar-toggler ml-auto mr-0" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
+          <i class="fas fa-bars tm-nav-icon"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mx-auto h-100">
+            <li class="nav-item"><a class="nav-link" href="intern-dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+            <li class="nav-item"><a class="nav-link active" href="intern-attendance.html"><i class="far fa-calendar-check"></i> Attendance</a></li>
+            <li class="nav-item"><a class="nav-link" href="intern-tasks.html"><i class="fas fa-list"></i> Tasks</a></li>
+            <li class="nav-item"><a class="nav-link" href="intern-progress.html"><i class="fas fa-chart-line"></i> Progress</a></li>
+            <li class="nav-item"><a class="nav-link" href="intern-feedback.html"><i class="fas fa-comment"></i> Feedback</a></li>
+          </ul>
+          <ul class="navbar-nav">
+            <li class="nav-item"><a class="nav-link d-block" href="#" onclick="logout()"><span id="topUser"></span> <b>Logout</b></a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container mt-5">
+      <div class="row tm-content-row">
+        <div class="col-12 tm-block-col">
+          <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
+            <h2 class="tm-block-title">My Attendance</h2>
+            <div id="msg"></div>
+
+            <div class="table-responsive">
+              <table class="table table-hover table-striped tm-table-striped-even mt-3">
+                <thead>
+                  <tr><th>ID</th><th>Date</th><th>Present</th><th>Marked By</th></tr>
+                </thead>
+                <tbody id="rows"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="tm-footer row tm-mt-small">
+      <div class="col-12 font-weight-light">
+        <p class="text-center text-white mb-0 px-4 small">Intern Tracking</p>
+      </div>
+    </footer>
+  </div>
+
+  <script src="js/jquery-3.3.1.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+
+  <script src="api/config.js"></script>
+  <script src="api/auth.js"></script>
+  <script src="api/ui.js"></script>
+  <script src="api/intern-attendance.js"></script>
+</body>
+</html>
