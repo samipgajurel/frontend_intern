@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html>
-<head><meta charset="UTF-8"><title>Redirect</title></head>
+<head>
+  <meta charset="UTF-8">
+  <title>Redirect</title>
+</head>
 <body>
 <script>
   const u = localStorage.getItem("user");
-  if(!u) location.href = "login.html";
+  if (!u) location.href = "login.html";
   else {
     const role = JSON.parse(u).role;
-    if(role === "supervisor" || role === "admin") location.href = "supervisor-dashboard.html";
+    if (role === "supervisor" || role === "admin") location.href = "supervisor-dashboard.html";
     else location.href = "intern-dashboard.html";
   }
 </script>
